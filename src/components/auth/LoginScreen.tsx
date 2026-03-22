@@ -26,7 +26,7 @@ export function LoginScreen({ onAuthenticated }: LoginScreenProps) {
   ]
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center overflow-hidden" style={{ background: '#050a14' }}>
+    <div className="fixed inset-0 flex items-center justify-center overflow-y-auto py-4" style={{ background: '#050a14' }}>
       {/* Starfield */}
       <div className="absolute inset-0 starfield opacity-60" />
 
@@ -51,9 +51,9 @@ export function LoginScreen({ onAuthenticated }: LoginScreenProps) {
         initial={{ opacity: 0, scale: 0.96, y: 16 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ duration: 0.5, ease: 'easeOut' }}
-        className="relative z-10 w-full max-w-sm mx-4"
+        className="relative z-10 w-full max-w-sm mx-4 my-auto"
       >
-        <div className="glass-card-heavy p-8 flex flex-col items-center gap-6">
+        <div className="glass-card-heavy p-5 flex flex-col items-center gap-4">
           {/* Header */}
           <div className="flex flex-col items-center gap-3 w-full">
             <motion.div

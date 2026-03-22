@@ -23,7 +23,7 @@ export function PinPad({ pinInput, onDigit, onBackspace, onClear, status, errorM
   const isSuccess = status === 'success'
 
   return (
-    <div className="flex flex-col items-center gap-6">
+    <div className="flex flex-col items-center gap-4">
       {/* PIN dots */}
       <motion.div
         className="flex gap-3"
@@ -82,9 +82,9 @@ export function PinPad({ pinInput, onDigit, onBackspace, onClear, status, errorM
       </div>
 
       {/* Numpad */}
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-2">
         {DIGITS.map((row, ri) => (
-          <div key={ri} className="flex gap-3">
+          <div key={ri} className="flex gap-2">
             {row.map((d) => (
               <motion.button
                 key={d}
@@ -98,8 +98,8 @@ export function PinPad({ pinInput, onDigit, onBackspace, onClear, status, errorM
                 disabled={d === '*'}
                 className="glass-button rounded-2xl flex items-center justify-center text-white font-semibold transition-all"
                 style={{
-                  width: 68,
-                  height: 68,
+                  width: 62,
+                  height: 62,
                   fontSize: d === '⌫' ? 16 : 22,
                   opacity: d === '*' ? 0 : 1,
                   cursor: d === '*' ? 'default' : 'pointer',
