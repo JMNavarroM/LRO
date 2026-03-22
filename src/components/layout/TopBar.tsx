@@ -60,23 +60,23 @@ export function TopBar({ missionElapsed, orbitCount, alerts, onAlertsClick }: To
       </div>
 
       {/* Center: mission info */}
-      <div className="flex-1 flex items-center justify-center gap-6">
-        <div className="flex items-center gap-2 text-xs font-mono">
+      <div className="flex-1 flex items-center justify-center gap-3 md:gap-5 min-w-0 overflow-hidden">
+        <div className="flex items-center gap-1.5 text-xs font-mono flex-shrink-0">
           <Clock size={12} className="text-slate-600" />
-          <span className="text-slate-500">MET</span>
+          <span className="text-slate-500 hidden sm:inline">MET</span>
           <span className="text-lro-accent font-semibold">{formatElapsed(elapsed)}</span>
         </div>
 
-        <div className="h-4 w-px bg-white/8" />
+        <div className="h-4 w-px bg-white/8 flex-shrink-0" />
 
-        <div className="text-xs font-mono">
+        <div className="text-xs font-mono flex-shrink-0">
           <span className="text-slate-500">ORBIT </span>
           <span className="text-white font-semibold">#{orbitCount.toLocaleString()}</span>
         </div>
 
-        <div className="h-4 w-px bg-white/8" />
+        <div className="h-4 w-px bg-white/8 flex-shrink-0 hidden lg:block" />
 
-        <div className="text-xs font-mono text-slate-500">
+        <div className="text-xs font-mono text-slate-500 hidden lg:block truncate">
           {now.toUTCString().replace('GMT', 'UTC').slice(0, -4)}
         </div>
       </div>

@@ -41,12 +41,12 @@ export function OrbitalMechanics({ data }: OrbitalMechanicsProps) {
         <p className="text-xs text-slate-500 font-mono mt-0.5">Real-time orbital position and parameters</p>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
         {/* Orbit diagram */}
         <GlassCard className="p-4">
           <h3 className="text-sm font-semibold text-slate-300 mb-4">Orbital Position</h3>
-          <div className="flex justify-center">
-            <svg width={360} height={360} viewBox="0 0 360 360">
+          <div>
+            <svg viewBox="0 0 360 360" className="w-full h-auto max-w-sm mx-auto" style={{ display: 'block' }}>
               {/* Space background */}
               <defs>
                 <radialGradient id="moon-grad" cx="50%" cy="50%">

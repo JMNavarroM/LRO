@@ -101,7 +101,7 @@ export function Communication({ data }: CommunicationProps) {
       </div>
 
       {/* Top row */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Signal strength */}
         <GlassCard className="p-4 flex flex-col gap-3">
           <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Signal Strength</h3>
@@ -167,7 +167,7 @@ export function Communication({ data }: CommunicationProps) {
       {/* Signal gauges */}
       <GlassCard className="p-4">
         <h3 className="text-sm font-semibold text-slate-300 mb-4">Link Quality Metrics</h3>
-        <div className="flex justify-around">
+        <div className="flex flex-wrap justify-around gap-4">
           <ArcGauge value={data.signalStrength.value} label="SIGNAL STRENGTH" color="#00b4d8" />
           <ArcGauge value={Math.min(100, data.dataRate.value)} label="BANDWIDTH UTIL" color="#38bdf8" />
           <ArcGauge value={98.7} label="LINK INTEGRITY" color="#22c55e" />

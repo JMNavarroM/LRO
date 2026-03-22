@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   LayoutDashboard, Radio, Globe, Telescope, Wifi, Thermometer,
@@ -24,9 +25,19 @@ interface SidebarProps {
 export function Sidebar({ onLogout }: SidebarProps) {
   const { activeModule, sidebarCollapsed, setActiveModule, toggleSidebar } = useAppStore()
 
+  // Auto-collapse on small viewports
+  useEffect(() => {
+    const check = () => {
+      if (window.innerWidth < 1024 && !sidebarCollapsed) toggleSidebar()
+    }
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
     <motion.aside
-      animate={{ width: sidebarCollapsed ? 64 : 220 }}
+      animate={{ width: sidebarCollapsed ? 56 : 200 }}
       transition={{ duration: 0.25, ease: 'easeInOut' }}
       className="relative flex flex-col h-full flex-shrink-0 overflow-hidden"
       style={{

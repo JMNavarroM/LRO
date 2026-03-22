@@ -111,7 +111,7 @@ export function Instruments({ data }: InstrumentsProps) {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
         {instruments.map((inst) => (
           <GlassCard
             key={inst.id}
@@ -168,7 +168,7 @@ export function Instruments({ data }: InstrumentsProps) {
       {selectedInst && (
         <GlassCard className="p-4" icy>
           <h3 className="text-sm font-semibold text-lro-accent mb-2">{selectedInst.name}</h3>
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
               { label: 'Status', value: selectedInst.status.toUpperCase() },
               { label: 'Health', value: `${selectedInst.health.toFixed(2)}%` },

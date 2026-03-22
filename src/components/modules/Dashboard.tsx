@@ -60,7 +60,7 @@ export function Dashboard({ data }: DashboardProps) {
       </div>
 
       {/* Mission stats strip */}
-      <div className="grid grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 xl:grid-cols-4 gap-3">
         {[
           { label: 'MISSION ELAPSED', value: formatMET(telemetrySimulator.getMissionElapsed()), icon: <Activity size={14} /> },
           { label: 'TOTAL ORBITS', value: `#${telemetrySimulator.getOrbitCount().toLocaleString()}`, icon: <Globe size={14} /> },
@@ -78,14 +78,14 @@ export function Dashboard({ data }: DashboardProps) {
       </div>
 
       {/* KPI grid */}
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-2 xl:grid-cols-3 gap-3">
         {metrics.map(({ channel, icon }) => (
           <MetricWidget key={channel.id} channel={channel} icon={icon} />
         ))}
       </div>
 
       {/* Bottom row */}
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
         {/* Orbit progress */}
         <GlassCard className="p-4">
           <div className="flex items-center justify-between mb-3">

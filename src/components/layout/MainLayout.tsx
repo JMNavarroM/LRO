@@ -57,7 +57,7 @@ export function MainLayout({ onLogout }: MainLayoutProps) {
           onAlertsClick={() => {}}
         />
 
-        <main className="flex-1 overflow-y-auto p-5">
+        <main className="flex-1 overflow-y-auto p-3 md:p-4 xl:p-5">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeModule}

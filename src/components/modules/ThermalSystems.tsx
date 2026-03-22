@@ -84,12 +84,12 @@ export function ThermalSystems({ data }: ThermalSystemsProps) {
         )}
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
         {/* Probe diagram */}
         <GlassCard className="p-4">
           <h3 className="text-sm font-semibold text-slate-300 mb-4">Thermal Map</h3>
-          <div className="flex justify-center">
-            <svg width={300} height={220} viewBox="-70 0 340 220">
+          <div>
+            <svg viewBox="-70 0 340 220" className="w-full h-auto max-w-sm mx-auto" style={{ display: 'block' }}>
               <defs>
                 {zones.map(z => (
                   <radialGradient key={z.id} id={`thermal-${z.id}`} cx="50%" cy="50%">
@@ -201,7 +201,7 @@ export function ThermalSystems({ data }: ThermalSystemsProps) {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         <GlassCard className="p-3 text-center">
           <div className="text-xxs text-slate-500 font-mono mb-1">HOTTEST ZONE</div>
           <div className="text-sm font-bold text-red-400 font-mono">{hottest.temp.toFixed(1)}°C</div>

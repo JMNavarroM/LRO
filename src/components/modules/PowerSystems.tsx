@@ -28,8 +28,8 @@ function BatteryGauge({ level }: { level: number }) {
   const color = level > 50 ? '#22c55e' : level > 20 ? '#f59e0b' : '#ef4444'
 
   return (
-    <div className="relative flex items-center justify-center" style={{ width: 180, height: 180 }}>
-      <svg width={180} height={180} viewBox="0 0 180 180">
+    <div className="relative flex items-center justify-center w-full max-w-[180px]">
+      <svg viewBox="0 0 180 180" className="w-full h-auto" style={{ display: 'block' }}>
         {/* Track */}
         <circle cx={90} cy={90} r={r} fill="none"
           stroke="rgba(255,255,255,0.06)" strokeWidth={14} strokeLinecap="round" />
@@ -87,7 +87,7 @@ export function PowerSystems({ data }: PowerSystemsProps) {
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Battery gauge */}
         <GlassCard className="p-4 flex flex-col items-center">
           <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Battery State</h3>
@@ -178,11 +178,11 @@ export function PowerSystems({ data }: PowerSystemsProps) {
       </div>
 
       {/* Consumption breakdown */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <GlassCard className="p-4">
           <h3 className="text-sm font-semibold text-slate-300 mb-3">Power Distribution</h3>
           <div className="flex items-center gap-4">
-            <div style={{ width: 160, height: 160 }}>
+            <div className="w-36 h-36 flex-shrink-0">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
