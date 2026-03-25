@@ -1,22 +1,18 @@
 import { useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import {
-  LayoutDashboard, Radio, Globe, Telescope, Wifi, Thermometer,
-  Zap, LogOut, ChevronLeft, ChevronRight, Satellite, Menu
-} from 'lucide-react'
+import { LayoutDashboard, BarChart2, Monitor, Settings, LogOut, ChevronLeft, ChevronRight } from 'lucide-react'
 import { useAppStore } from '../../store/appStore'
 import { StatusDot } from '../ui/StatusDot'
 import type { ModuleId } from '../../types'
 
+// ─── Add / remove modules here ───────────────────────────────────────────────
 const MODULES: { id: ModuleId; label: string; icon: React.ReactNode; desc: string }[] = [
-  { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard size={18} />, desc: 'Mission overview' },
-  { id: 'telemetry', label: 'Telemetry', icon: <Radio size={18} />, desc: 'Live data streams' },
-  { id: 'orbital', label: 'Orbital Mechanics', icon: <Globe size={18} />, desc: 'Orbit parameters' },
-  { id: 'instruments', label: 'Instruments', icon: <Telescope size={18} />, desc: 'Sensor systems' },
-  { id: 'communication', label: 'Communication', icon: <Wifi size={18} />, desc: 'Signal & data' },
-  { id: 'thermal', label: 'Thermal Systems', icon: <Thermometer size={18} />, desc: 'Temperatures' },
-  { id: 'power', label: 'Power Systems', icon: <Zap size={18} />, desc: 'Energy management' },
+  { id: 'overview',   label: 'Overview',   icon: <LayoutDashboard size={18} />, desc: 'Key metrics' },
+  { id: 'analytics',  label: 'Analytics',  icon: <BarChart2 size={18} />,       desc: 'Trends & charts' },
+  { id: 'monitors',   label: 'Monitors',   icon: <Monitor size={18} />,         desc: 'Live data streams' },
+  { id: 'settings',   label: 'Settings',   icon: <Settings size={18} />,        desc: 'Configuration' },
 ]
+// ─────────────────────────────────────────────────────────────────────────────
 
 interface SidebarProps {
   onLogout: () => void
@@ -58,17 +54,18 @@ export function Sidebar({ onLogout }: SidebarProps) {
             >
               <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
                 style={{ background: 'rgba(0,180,216,0.15)', border: '1px solid rgba(0,180,216,0.25)' }}>
-                <Satellite size={16} className="text-lro-accent" />
+                <LayoutDashboard size={16} className="text-lro-accent" />
               </div>
               <div className="min-w-0">
-                <div className="text-sm font-bold text-white tracking-wider truncate">LRO TWIN</div>
+                {/* ─── Update your app name here ─── */}
+                <div className="text-sm font-bold text-white tracking-wider truncate">GLASS DASH</div>
                 <div className="text-xxs text-slate-600 font-mono tracking-widest">PLATFORM</div>
               </div>
             </motion.div>
           ) : (
             <motion.div key="icon" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
               className="w-full flex justify-center">
-              <Satellite size={18} className="text-lro-accent" />
+              <LayoutDashboard size={18} className="text-lro-accent" />
             </motion.div>
           )}
         </AnimatePresence>
@@ -85,7 +82,7 @@ export function Sidebar({ onLogout }: SidebarProps) {
         <div className="px-3 py-2 flex-shrink-0">
           <div className="flex items-center justify-between px-2 py-1.5 rounded-lg"
             style={{ background: 'rgba(0,180,216,0.05)', border: '1px solid rgba(0,180,216,0.08)' }}>
-            <span className="text-xxs text-slate-500 font-mono">TELEMETRY</span>
+            <span className="text-xxs text-slate-500 font-mono">DATA</span>
             <StatusDot status="live" size="sm" showLabel />
           </div>
         </div>
@@ -133,7 +130,7 @@ export function Sidebar({ onLogout }: SidebarProps) {
                 )}
               </AnimatePresence>
 
-              {/* Tooltip for collapsed state */}
+              {/* Tooltip for collapsed */}
               {sidebarCollapsed && (
                 <div className="absolute left-full ml-2 hidden group-hover:flex items-center z-50">
                   <div className="px-2 py-1 rounded-lg text-xs text-white whitespace-nowrap"

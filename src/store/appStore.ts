@@ -9,7 +9,7 @@ interface AppStore {
 }
 
 export const useAppStore = create<AppStore>((set) => ({
-  activeModule: 'dashboard',
+  activeModule: 'overview',
   sidebarCollapsed: false,
   setActiveModule: (id) => set({ activeModule: id }),
   toggleSidebar: () => set((s) => ({ sidebarCollapsed: !s.sidebarCollapsed })),

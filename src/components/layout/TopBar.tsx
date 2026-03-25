@@ -1,38 +1,38 @@
 import { useState, useEffect } from 'react'
-import { Bell, Clock, Signal } from 'lucide-react'
+import { Bell, Clock, Activity } from 'lucide-react'
 import { StatusDot } from '../ui/StatusDot'
 import type { Alert } from '../../types'
 
+// ─── Config ──────────────────────────────────────────────────────────────────
+const SYSTEM_LABEL = 'SYS-01'
+const ENV_LABEL = 'PRODUCTION'
+// ─────────────────────────────────────────────────────────────────────────────
+
 interface TopBarProps {
-  missionElapsed: number
-  orbitCount: number
+  sessionElapsed: number
   alerts: Alert[]
   onAlertsClick: () => void
 }
 
 function formatElapsed(ms: number): string {
-  const totalSec = Math.floor(ms / 1000)
-  const days = Math.floor(totalSec / 86400)
-  const hours = Math.floor((totalSec % 86400) / 3600)
-  const mins = Math.floor((totalSec % 3600) / 60)
-  const secs = totalSec % 60
-  return `${days}d ${hours.toString().padStart(2,'0')}:${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`
+  const s = Math.floor(ms / 1000)
+  const h = Math.floor(s / 3600)
+  const m = Math.floor((s % 3600) / 60)
+  const sec = s % 60
+  return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`
 }
 
-export function TopBar({ missionElapsed, orbitCount, alerts, onAlertsClick }: TopBarProps) {
+export function TopBar({ sessionElapsed, alerts, onAlertsClick }: TopBarProps) {
   const [now, setNow] = useState(new Date())
-  const [elapsed, setElapsed] = useState(missionElapsed)
+  const [elapsed, setElapsed] = useState(sessionElapsed)
 
   useEffect(() => {
-    const t = setInterval(() => {
-      setNow(new Date())
-      setElapsed(e => e + 1000)
-    }, 1000)
+    const t = setInterval(() => { setNow(new Date()); setElapsed((e) => e + 1000) }, 1000)
     return () => clearInterval(t)
   }, [])
 
-  const criticals = alerts.filter(a => a.severity === 'critical').length
-  const warnings = alerts.filter(a => a.severity === 'warning').length
+  const criticals = alerts.filter((a) => a.severity === 'critical').length
+  const warnings  = alerts.filter((a) => a.severity === 'warning').length
 
   return (
     <header
@@ -43,35 +43,25 @@ export function TopBar({ missionElapsed, orbitCount, alerts, onAlertsClick }: To
         backdropFilter: 'blur(20px)',
       }}
     >
-      {/* Left: connection status */}
+      {/* Left: live indicator */}
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-2">
           <StatusDot status="live" size="sm" />
           <span className="text-xs font-mono text-lro-accent font-semibold tracking-widest animate-flicker">LIVE</span>
         </div>
-
         <div className="h-4 w-px bg-white/10" />
-
         <div className="flex items-center gap-1.5 text-xs font-mono text-slate-500">
-          <Signal size={12} />
-          <span>DSN GOLDSTONE</span>
-          <span className="text-green-400">●</span>
+          <Activity size={12} />
+          <span>{ENV_LABEL}</span>
         </div>
       </div>
 
-      {/* Center: mission info */}
+      {/* Center: session info */}
       <div className="flex-1 flex items-center justify-center gap-3 md:gap-5 min-w-0 overflow-hidden">
         <div className="flex items-center gap-1.5 text-xs font-mono flex-shrink-0">
           <Clock size={12} className="text-slate-600" />
-          <span className="text-slate-500 hidden sm:inline">MET</span>
+          <span className="text-slate-500 hidden sm:inline">SESSION</span>
           <span className="text-lro-accent font-semibold">{formatElapsed(elapsed)}</span>
-        </div>
-
-        <div className="h-4 w-px bg-white/8 flex-shrink-0" />
-
-        <div className="text-xs font-mono flex-shrink-0">
-          <span className="text-slate-500">ORBIT </span>
-          <span className="text-white font-semibold">#{orbitCount.toLocaleString()}</span>
         </div>
 
         <div className="h-4 w-px bg-white/8 flex-shrink-0 hidden lg:block" />
@@ -81,7 +71,7 @@ export function TopBar({ missionElapsed, orbitCount, alerts, onAlertsClick }: To
         </div>
       </div>
 
-      {/* Right: alerts */}
+      {/* Right: alerts + operator */}
       <div className="flex items-center gap-3">
         {(criticals > 0 || warnings > 0) && (
           <div className="flex items-center gap-2">
@@ -112,7 +102,7 @@ export function TopBar({ missionElapsed, orbitCount, alerts, onAlertsClick }: To
 
         <div className="text-xs font-mono text-slate-600 pl-2 border-l border-white/8">
           <span className="text-slate-500">OPERATOR</span>
-          <span className="text-slate-300 ml-1">SYS-01</span>
+          <span className="text-slate-300 ml-1">{SYSTEM_LABEL}</span>
         </div>
       </div>
     </header>

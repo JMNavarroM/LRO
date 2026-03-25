@@ -1,10 +1,10 @@
 import { useMemo } from 'react'
 import { AreaChart, Area, ResponsiveContainer } from 'recharts'
-import type { TelemetryChannel } from '../../types'
+import type { MetricChannel } from '../../types'
 import { StatusDot } from './StatusDot'
 
 interface MetricWidgetProps {
-  channel: TelemetryChannel
+  channel: MetricChannel
   icon: React.ReactNode
 }
 

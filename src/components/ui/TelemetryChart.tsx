@@ -3,10 +3,10 @@ import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, ReferenceLine
 } from 'recharts'
-import type { TelemetryChannel } from '../../types'
+import type { MetricChannel } from '../../types'
 
 interface TelemetryChartProps {
-  channel: TelemetryChannel
+  channel: MetricChannel
   height?: number
   showGrid?: boolean
   showAxes?: boolean

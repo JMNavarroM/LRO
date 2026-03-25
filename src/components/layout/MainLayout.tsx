@@ -1,37 +1,31 @@
-import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Sidebar } from './Sidebar'
 import { TopBar } from './TopBar'
 import { AlertBanner } from '../ui/AlertBanner'
 import { useAppStore } from '../../store/appStore'
-import { useTelemetry } from '../../hooks/useTelemetry'
+import { useData } from '../../hooks/useData'
 
-// Module pages
-import { Dashboard } from '../modules/Dashboard'
-import { TelemetryModule } from '../modules/Telemetry'
-import { OrbitalMechanics } from '../modules/OrbitalMechanics'
-import { Instruments } from '../modules/Instruments'
-import { Communication } from '../modules/Communication'
-import { ThermalSystems } from '../modules/ThermalSystems'
-import { PowerSystems } from '../modules/PowerSystems'
+// ─── Module pages — add yours here ───────────────────────────────────────────
+import { Overview } from '../modules/Overview'
+import { Analytics } from '../modules/Analytics'
+import { Monitors } from '../modules/Monitors'
+import { SettingsModule } from '../modules/Settings'
+
+const MODULE_COMPONENTS = {
+  overview:  Overview,
+  analytics: Analytics,
+  monitors:  Monitors,
+  settings:  SettingsModule,
+}
+// ─────────────────────────────────────────────────────────────────────────────
 
 interface MainLayoutProps {
   onLogout: () => void
 }
 
-const MODULE_COMPONENTS = {
-  dashboard: Dashboard,
-  telemetry: TelemetryModule,
-  orbital: OrbitalMechanics,
-  instruments: Instruments,
-  communication: Communication,
-  thermal: ThermalSystems,
-  power: PowerSystems,
-}
-
 export function MainLayout({ onLogout }: MainLayoutProps) {
   const { activeModule } = useAppStore()
-  const { data, alerts, dismissAlert, missionElapsed, orbitCount } = useTelemetry()
+  const { data, alerts, dismissAlert, sessionElapsed } = useData()
 
   const ActiveComponent = MODULE_COMPONENTS[activeModule]
 
@@ -45,17 +39,10 @@ export function MainLayout({ onLogout }: MainLayoutProps) {
           style={{ background: 'radial-gradient(circle, #0ea5e9 0%, transparent 70%)', filter: 'blur(100px)' }} />
       </div>
 
-      {/* Sidebar */}
       <Sidebar onLogout={onLogout} />
 
-      {/* Main content */}
       <div className="flex-1 flex flex-col min-w-0 relative">
-        <TopBar
-          missionElapsed={missionElapsed}
-          orbitCount={orbitCount}
-          alerts={alerts}
-          onAlertsClick={() => {}}
-        />
+        <TopBar sessionElapsed={sessionElapsed} alerts={alerts} onAlertsClick={() => {}} />
 
         <main className="flex-1 overflow-y-auto p-3 md:p-4 xl:p-5">
           <AnimatePresence mode="wait">
@@ -73,7 +60,6 @@ export function MainLayout({ onLogout }: MainLayoutProps) {
         </main>
       </div>
 
-      {/* Alert notifications */}
       <AlertBanner alerts={alerts} onDismiss={dismissAlert} />
     </div>
   )
